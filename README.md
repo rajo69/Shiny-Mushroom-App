@@ -75,5 +75,130 @@ The **mushrooms.csv** dataset consists of various features that describe the phy
 
 The goal of this project was to develop a reliable model to predict whether a mushroom is **edible** or **poisonous** based on its physical characteristics. Both **Decision Tree** and **Random Forest** models performed well, with the Random Forest model showing higher accuracy due to its ensemble nature. The Shiny app provides an easy-to-use interface for users to classify mushrooms based on the trained models.
 
+## References
+This section provides references to relevant documentation, tutorials, and resources used in this script to guide understanding and further learning. Each part of the script is matched to its source or credible explanation.
+
+---
+
+### Installation of Required Libraries
+```r
+if (!require(ggplot2)) install.packages("ggplot2")
+if (!require(plotly)) install.packages("plotly")
+if (!require(DT)) install.packages("DT")
+...
+```
+**Reference**: 
+- [CRAN: ggplot2 Documentation](https://cran.r-project.org/web/packages/ggplot2/index.html)
+- [CRAN: plotly Documentation](https://cran.r-project.org/web/packages/plotly/index.html)
+- [CRAN: randomForest Documentation](https://cran.r-project.org/web/packages/randomForest/index.html)
+
+---
+
+### Data Preparation and Summary
+```r
+mushroom_data <- read.csv("mushrooms.csv")
+summary(mushroom_data)
+```
+**Reference**: 
+- [R Documentation: `read.csv`](https://stat.ethz.ch/R-manual/R-devel/library/utils/html/read.table.html)
+- [R Documentation: `summary`](https://stat.ethz.ch/R-manual/R-devel/library/base/html/summary.html)
+
+---
+
+### Data Visualization with `ggplot2` and `plotly`
+```r
+p <- ggplot(feature_data, aes(x = Feature, fill = Edible)) +
+  geom_bar(position = "dodge") +
+  ...
+ggplotly(p)
+```
+**Reference**: 
+- [ggplot2: Create Elegant Data Visualisations](https://ggplot2.tidyverse.org/)
+- [Interactive Graphing with Plotly](https://plotly.com/r/)
+
+---
+
+### Decision Tree Modeling with `rpart`
+```r
+decision_tree <- rpart(Edible ~ ., data = mushrooms_train, method = "class")
+rpart.plot::rpart.plot(decision_tree)
+```
+**Reference**: 
+- [R Documentation: `rpart`](https://cran.r-project.org/web/packages/rpart/index.html)
+- [CRAN: rpart.plot](https://cran.r-project.org/web/packages/rpart.plot/index.html)
+
+---
+
+### Tuning and Visualization for Decision Tree
+```r
+results <- data.frame(cp = double(), Accuracy = double())
+for (cp in seq(0.0001, 0.01, by = 0.0001)) {
+  ...
+}
+```
+**Reference**: 
+- [Introduction to Tree-Based Models in R](https://rviews.rstudio.com/2021/05/04/decision-trees-in-r/)
+- [rpart Control Parameters](https://cran.r-project.org/web/packages/rpart/vignettes/longintro.pdf)
+
+---
+
+### Random Forest Modeling and Tuning
+```r
+rf_model <- randomForest(Edible ~ ., data = mushrooms_train, ntree = 100)
+```
+**Reference**: 
+- [CRAN: randomForest](https://cran.r-project.org/web/packages/randomForest/index.html)
+- [R Documentation: Tuning Random Forest](https://www.stat.berkeley.edu/~breiman/RandomForests/)
+
+---
+
+### ROC Curve Analysis
+```r
+roc_rf <- roc(mushrooms_test$Edible, rf_prob[, 2], levels = rev(levels(mushrooms_test$Edible)))
+```
+**Reference**: 
+- [CRAN: pROC Package](https://cran.r-project.org/web/packages/pROC/index.html)
+- [Visualizing ROC Curves in R](https://towardsdatascience.com/roc-curve-and-auc-explained-26c4a117ca17)
+
+---
+
+### Model Accuracy and Confusion Matrix
+```r
+confusionMatrix(dt_predictions, mushrooms_test$Edible)
+```
+**Reference**: 
+- [caret: Confusion Matrix in R](https://cran.r-project.org/web/packages/caret/index.html)
+- [R Documentation: confusionMatrix](https://rdrr.io/cran/caret/man/confusionMatrix.html)
+
+---
+
+### Cross-Validation with `caret`
+```r
+train_control <- trainControl(method = "cv", number = 10)
+...
+```
+**Reference**: 
+- [Caret Package Overview](https://topepo.github.io/caret/)
+- [Cross-Validation Techniques in R](https://rpubs.com/venkat1986/caret-crossvalidation)
+
+---
+
+### Predicting with User Inputs
+```r
+pred <- predict(rf_model_tuned, new_data, type = "class")
+```
+**Reference**: 
+- [R Documentation: `predict`](https://stat.ethz.ch/R-manual/R-devel/library/stats/html/predict.html)
+- [Random Forest Prediction Guide](https://towardsdatascience.com/random-forest-in-r-f66adf80ec9)
+
+---
+
+## General R Resources
+- [R Programming Documentation](https://www.r-project.org/other-docs.html)
+- [Comprehensive R Archive Network (CRAN)](https://cran.r-project.org/)
+
+By including these references, users can dive deeper into the functions, methodologies, and libraries used in this code.
+
+
 Feel free to contribute or reach out for any questions regarding the implementation!
 
