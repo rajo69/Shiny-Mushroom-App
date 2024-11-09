@@ -2,6 +2,10 @@
 
 This repository contains an R project focused on analyzing the **mushrooms.csv** dataset to develop reliable models that can classify mushrooms as **edible** or **poisonous** based on their various characteristics such as cap shape, odor, gill size, and more. The primary objective was to build accurate models and use the results in a Shiny app for real-time classification.
 
+## App
+
+Use the app: [Shiny Mushroom App](https://rgox6k-rajarshi-nandi.shinyapps.io/Shiny_Mushroom_App/)
+
 ## Project Overview
 
 This project involved several key steps:
